@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts with fallbacks for better rural connectivity */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Sans+Gurmukhi:wght@400;500;600;700;800&display=swap');
+
+/* Base styles optimized for rural users */
+html {
+  font-size: 18px; /* Larger base font size for better readability */
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f8fafc;
+  color: #1a202c;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced font families for regional languages */
+.font-hindi {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
+  font-weight: 500;
+}
+
+.font-punjabi {
+  font-family: 'Noto Sans Gurmukhi', 'Noto Sans', sans-serif;
+  font-weight: 500;
+}
+
+/* Improved accessibility for links */
+a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #1d4ed8;
+  text-decoration-thickness: 3px;
+}
+
+a:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Universal box-sizing */
+* {
+  box-sizing: border-box;
+}
+
+/* Enhanced form elements for better usability */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+input, select, textarea {
+  background-color: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #1f2937;
+  transition: all 0.2s ease;
+  min-height: 48px; /* Larger touch targets */
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+/* Enhanced button styles */
+button {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  input, select, textarea {
+    border-color: #000000;
+  }
+  
+  button {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Large text support */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    font-size: 20px;
+  }
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  html {
+    font-size: 20px; /* Even larger on mobile */
+  }
+  
+  input, select, textarea, button {
+    min-height: 56px; /* Larger touch targets on mobile */
+    font-size: 1.1rem;
+  }
+  
+  button {
+    padding: 16px 32px;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+  
+  button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+  }
+}
+
+/* Utility classes for rural-friendly design */
+.text-large {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.text-extra-large {
+  font-size: 1.5rem;
+  line-height: 1.8;
+}
+
+.button-large {
+  padding: 16px 32px;
+  font-size: 1.125rem;
+  min-height: 56px;
+}
+
+.button-extra-large {
+  padding: 20px 40px;
+  font-size: 1.25rem;
+  min-height: 64px;
+}
+
+/* High contrast text */
+.text-high-contrast {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* Simple card design */
+.card-simple {
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-simple:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

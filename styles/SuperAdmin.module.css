@@ -1,0 +1,114 @@
+.container {
+  padding: 2rem;
+  background-color: #ffffff;
+  min-height: 100vh;
+  color: #000000;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+.header h1 {
+  font-size: 2.5rem;
+  color: #000000;
+}
+.backButton {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  color: #000000;
+  text-decoration: none;
+}
+.tabs {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  border-bottom: 2px solid #cccccc;
+}
+.tab {
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #555555;
+}
+.activeTab {
+  border-bottom: 3px solid #000000;
+  color: #000000;
+  font-weight: bold;
+}
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+.formSection, .listSection {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #eeeeee;
+}
+.formSection h2, .listSection h2 {
+  margin-top: 0;
+  color: #000000;
+}
+.formGroup {
+  margin-bottom: 1rem;
+}
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.formGroup input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #000000;
+  background-color: #ffffff;
+}
+.submitButton {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.listItem {
+  border: 1px solid #dddddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #000000;
+}
+.listItem p {
+  margin: 0.5rem 0;
+  color: #000000;
+}
+.listItem button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+.saveButton {
+  background-color: #555555;
+  border: 1px solid #555555;
+}
+.removeButton {
+  background-color: #888888;
+  border: 1px solid #888888;
+}

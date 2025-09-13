@@ -1,0 +1,69 @@
+{
+  "common_cold": {
+    "keywords": ["cold", "runny", "nose", "sneezing", "sore", "throat"],
+    "negative_keywords": ["chest", "palpitations", "dizziness", "vision"],
+    "recommendations": [
+      {
+        "medicine": "Cetirizine 10mg",
+        "guideline": "For symptomatic relief of allergic rhinitis and urticaria."
+      },
+      {
+        "medicine": "Saline Nasal Spray",
+        "guideline": "To moisturize nasal passages and relieve congestion."
+      }
+    ]
+  },
+  "fever_pain": {
+    "keywords": ["fever", "headache", "pain", "ache", "myalgia"],
+    "negative_keywords": ["chest", "seizure"],
+    "recommendations": [
+      {
+        "medicine": "Paracetamol 500mg",
+        "guideline": "Standard analgesic and antipyretic. Use as needed."
+      },
+      {
+        "medicine": "Ibuprofen 400mg",
+        "guideline": "NSAID for pain and inflammation. Take with food."
+      }
+    ]
+  },
+  "cough": {
+    "keywords": ["cough", "phlegm", "sputum"],
+    "recommendations": [
+      {
+        "medicine": "Guaifenesin Syrup",
+        "guideline": "Expectorant to help clear phlegm from the airways."
+      },
+      {
+        "medicine": "Dextromethorphan Syrup",
+        "guideline": "Cough suppressant for dry, hacking coughs."
+      }
+    ]
+  },
+  "cardiac_symptoms": {
+    "keywords": ["chest", "palpitations", "arrhythmia", "dizziness", "shortness of breath"],
+    "recommendations": [
+      {
+        "medicine": "Aspirin 75mg",
+        "guideline": "For suspected cardiac events, as per AHA/ESC guidelines."
+      }
+    ],
+    "referral": {
+      "specialty": "Cardiology",
+      "reason": "Patient presents with potential cardiac symptoms requiring specialist evaluation."
+    }
+  },
+  "neurological_symptoms": {
+    "keywords": ["numbness", "tingling", "seizure", "vision", "migraine", "severe headache"],
+    "recommendations": [
+      {
+        "medicine": "Sumatriptan 50mg",
+        "guideline": "For acute treatment of migraine attacks."
+      }
+    ],
+    "referral": {
+      "specialty": "Neurology",
+      "reason": "Patient reports neurological symptoms that warrant specialist investigation."
+    }
+  }
+}

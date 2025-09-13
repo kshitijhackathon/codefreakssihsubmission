@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 2rem;
+}
+.main {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.logoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #5f259f;
+}
+.logoText {
+  background-color: #5f259f;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: serif;
+}
+.accepted {
+  color: #555;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+.scanText {
+  color: #333;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.qrCode {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #fff;
+  margin-bottom: 1rem;
+}
+.qrImg {
+  width: 220px;
+  height: 220px;
+}
+.loading {
+  color: #666;
+  font-size: 0.9rem;
+}
+.merchantName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.checkoutAction {
+  width: 100%;
+}
+.totalAmount {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+.confirmButton {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #5f259f;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s;
+}
+.confirmButton:disabled {
+  background-color: #4caf50;
+  cursor: not-allowed;
+}
+.successTick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.footer {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #888;
+}

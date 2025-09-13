@@ -1,0 +1,447 @@
+{
+  "appointments": [
+    {
+      "id": 1757062400138,
+      "token": "NCT-1757062400138",
+      "patientName": "Devsh",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "date": "2025-09-05",
+      "time": "14:23"
+    },
+    {
+      "id": 1757063870779,
+      "token": "NCT-1757063870779",
+      "patientName": "Hasi",
+      "doctor": "Dr.Madhuparna Sen",
+      "date": "2025-09-05",
+      "time": "14:51"
+    },
+    {
+      "id": 1757084199000,
+      "token": "N9000",
+      "patientName": "Henry",
+      "doctor": "DR.Rastogi",
+      "date": "7 september",
+      "time": "4 pm"
+    },
+    {
+      "id": 1757084225682,
+      "token": "N5682",
+      "patientName": "Disouza",
+      "doctor": "Dr.Madhuparna Sen",
+      "date": "2025-10-02",
+      "time": "20:32"
+    },
+    {
+      "id": 1757101134459,
+      "patientName": "Daksh",
+      "doctor": "DR.Rastogi",
+      "date": "2025-09-07",
+      "time": "01:10"
+    },
+    {
+      "id": 1757102781042,
+      "patientName": "Henry",
+      "doctor": "DR.Rastogi",
+      "date": "2025-09-11",
+      "time": "10:00 AM",
+      "token": "TKN1757102781010"
+    },
+    {
+      "id": 1757103010646,
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "date": "2025-09-12",
+      "time": "04:40"
+    },
+    {
+      "id": 1757107934111,
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "date": "2025-09-17",
+      "time": "10:00 AM",
+      "token": "TKN1757107934104"
+    },
+    {
+      "id": 1757149760867,
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "date": "2025-09-18",
+      "time": "10:00 AM",
+      "token": "TKN1757149760838"
+    },
+    {
+      "id": 1757182956381,
+      "patientName": "Ritesh Kumar ",
+      "doctor": "Dr.Madhuparna Sen",
+      "date": "2025-09-06",
+      "time": "23:55"
+    }
+  ],
+  "doctors": [
+    {
+      "id": 1757061986709,
+      "name": "Dr Ummul Khair (Sharma)",
+      "specialty": "Pathologist"
+    },
+    {
+      "id": 1757062685456,
+      "name": "Dr.Madhuparna Sen",
+      "specialty": "Dentist"
+    },
+    {
+      "id": 1757072251805,
+      "name": "DR.Rastogi",
+      "specialty": "Cardiology"
+    }
+  ],
+  "hospitals": [
+    {
+      "id": 1725500000001,
+      "name": "Civil Hospital Nabha",
+      "address": "Circular Rd, Nabha, Punjab 147201",
+      "bedsAvailable": 50,
+      "facilities": "Emergency, General Ward, Maternity, OPD Services"
+    },
+    {
+      "id": 1725500000002,
+      "name": "Rajan Memorial Hospital",
+      "address": "Near Bus Stand, Nabha, Punjab 147201",
+      "bedsAvailable": 30,
+      "facilities": "Orthopedics, General Surgery, ICU"
+    },
+    {
+      "id": 1725500000003,
+      "name": "Jindal Heart and Super Speciality Hospital",
+      "address": "Patiala Gate, Nabha, Punjab 147201",
+      "bedsAvailable": 40,
+      "facilities": "Cardiology, Neurology, Emergency, ICU"
+    },
+    {
+      "id": 1725500000004,
+      "name": "Punjab Hospital",
+      "address": "Bhadson Rd, Nabha, Punjab 147201",
+      "bedsAvailable": 25,
+      "facilities": "General Medicine, Pediatrics, OPD"
+    },
+    {
+      "id": 1725500000005,
+      "name": "Aggarsain Hospital",
+      "address": "Duladdi Gate, Nabha, Punjab 147201",
+      "bedsAvailable": 35,
+      "facilities": "Gynecology, General Surgery, Diagnostics"
+    }
+  ],
+  "pharmacyStock": [
+    {
+      "name": "Dolo",
+      "quantity": 6780,
+      "price": 12
+    },
+    {
+      "name": "Betadene",
+      "quantity": 4090,
+      "price": 25
+    },
+    {
+      "name": "Cough Syrup",
+      "quantity": 5678,
+      "price": 37
+    },
+    {
+      "name": "Paracetamol",
+      "quantity": 345679,
+      "price": 15
+    }
+  ],
+  "patientForms": [
+    {
+      "name": "Amit Kumar",
+      "date": "2025-09-10",
+      "token": "1",
+      "formData": "Patient reports a persistent cough for the last 5 days, accompanied by a mild fever in the evenings.\n\n- No difficulty breathing\n- No recent travel\n- History of seasonal allergies",
+      "doctorNotes": "meet me "
+    },
+    {
+      "name": "Sunita Sharma",
+      "date": "2025-09-11",
+      "token": "2",
+      "formData": "Subject: Follow-up for blood pressure management.\n\nPatient has been monitoring BP at home. Readings are consistently around 135/85 mmHg.\n\nCurrent Medication: Amlodipine 5mg once daily.\n\nNo side effects reported.",
+      "doctorNotes": "BP is well-managed. Advised to continue current medication and diet. Next follow-up in 3 months."
+    },
+    {
+      "name": "Rajesh Singh",
+      "date": "2025-09-12",
+      "token": "3",
+      "formData": "Patient complains of lower back pain after lifting a heavy object two days ago.\n\n- Pain is sharp and localized to the right side.\n- Pain worsens with movement.\n- Taking over-the-counter pain relief with minimal effect.",
+      "doctorNotes": ""
+    },
+    {
+      "age": "21",
+      "problem": "chest pain high bp sugar level bottom mark",
+      "name": "Dev Sharma",
+      "date": "2025-09-19",
+      "token": "1"
+    }
+  ],
+  "chatHistory": {},
+  "prescriptions": [
+    {
+      "id": 1757060483174,
+      "patientName": "Dev Sharma",
+      "medicines": [
+        {
+          "name": "Dolo",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "id": 1757062440646,
+      "patientName": "Devsh",
+      "medicines": [
+        {
+          "name": "Dolo",
+          "quantity": 4
+        },
+        {
+          "name": "Paracetamol",
+          "quantity": 5
+        },
+        {
+          "name": "Cough Syrup",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": 1757102781008,
+      "date": "2025-09-05T20:06:21.008Z",
+      "patientName": "Henry",
+      "token": "N9000",
+      "doctor": "DR.Rastogi",
+      "medicines": [
+        {
+          "name": "Paracetamol 500mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Ibuprofen 400mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Guaifenesin Syrup",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Dextromethorphan Syrup",
+          "dosage": "As directed"
+        }
+      ],
+      "notes": "Under observation daily meet at opd",
+      "vitals": {
+        "bp": "120/78",
+        "temp": "97",
+        "hr": "98.09"
+      },
+      "labOrders": [
+        "Lipid Profile",
+        "Blood Sugar (Fasting & PP)"
+      ],
+      "referral": {
+        "to": "Emergency Medicine",
+        "reason": "Require general checkup in opd"
+      },
+      "signature": null
+    },
+    {
+      "id": 1757107934101,
+      "date": "2025-09-05T21:32:14.101Z",
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "medicines": [
+        {
+          "name": "Paracetamol 500mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Ibuprofen 400mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Cetirizine 10mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Saline Nasal Spray",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Guaifenesin Syrup",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Paracetamol 500mg",
+          "dosage": "1 tablet SOS for fever/pain"
+        }
+      ],
+      "notes": "emergency admit",
+      "vitals": {
+        "bp": "78/89",
+        "temp": "110",
+        "hr": "56.00"
+      },
+      "labOrders": [
+        "Complete Blood Count (CBC)",
+        "Lipid Profile",
+        "Thyroid Function Test (TFT)",
+        "Blood Sugar (Fasting & PP)",
+        "Urine Routine & Microscopy"
+      ],
+      "referral": {
+        "to": "Orthopedics",
+        "reason": "joint pain"
+      },
+      "signature": null
+    },
+    {
+      "id": 1757149760833,
+      "date": "2025-09-06T09:09:20.833Z",
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "medicines": [
+        {
+          "name": "Aspirin 75mg",
+          "dosage": "As directed"
+        },
+        {
+          "name": "Ibuprofen 400mg",
+          "dosage": "1 tablet BD after food"
+        },
+        {
+          "name": "Cetirizine 10mg",
+          "dosage": "1 tablet OD at night"
+        }
+      ],
+      "notes": "OPD checkup requires visit Civil line hospital",
+      "vitals": {
+        "bp": "120/87",
+        "temp": "98",
+        "hr": "98.06"
+      },
+      "labOrders": [
+        "Complete Blood Count (CBC)",
+        "Blood Sugar (Fasting & PP)"
+      ],
+      "referral": {
+        "to": "Cardiology",
+        "reason": "Patient presents with potential cardiac symptoms requiring specialist evaluation."
+      },
+      "signature": null
+    },
+    {
+      "id": 1757681363401,
+      "date": "2025-09-12T12:49:23.401Z",
+      "patientName": "Nitu",
+      "doctor": "Dr Ummul Khair (Sharma)",
+      "medicines": [],
+      "notes": "",
+      "vitals": {
+        "bp": "",
+        "temp": "",
+        "hr": ""
+      },
+      "labOrders": [],
+      "referral": null,
+      "signature": null
+    }
+  ],
+  "pharmacy": [
+    {
+      "id": 1757066870922,
+      "name": "dolo",
+      "price": 12,
+      "stock": 1
+    },
+    {
+      "id": 1757066882477,
+      "name": "Betadene",
+      "price": 21,
+      "stock": 46775
+    },
+    {
+      "id": 1757066899490,
+      "name": "Paracetamol",
+      "price": 18,
+      "stock": 22224
+    },
+    {
+      "id": 1757066912036,
+      "name": "ORS",
+      "price": 14,
+      "stock": 67676767
+    },
+    {
+      "id": 1757066943280,
+      "name": "Antibiotic ",
+      "price": 12,
+      "stock": 575576576
+    },
+    {
+      "id": 1757066958641,
+      "name": "Pain killer ",
+      "price": 7,
+      "stock": 676767
+    },
+    {
+      "id": 1757067010385,
+      "name": "Citrin",
+      "price": 18,
+      "stock": 232322
+    },
+    {
+      "id": 1757067021408,
+      "name": "Bandaid",
+      "price": 4,
+      "stock": 5454
+    },
+    {
+      "id": 1757067046591,
+      "name": "Cough syrup",
+      "price": 140,
+      "stock": 34343
+    },
+    {
+      "id": 1757067097193,
+      "name": "Calcium Sandoz",
+      "price": 23,
+      "stock": 5657
+    }
+  ],
+  "trackerEntries": [
+    {
+      "id": 1757097078059,
+      "date": "2025-09-05T18:31:18.059Z",
+      "patientName": "Henry",
+      "vitalType": "Blood Sugar (mg/dL)",
+      "value": "23",
+      "notes": "feeling headache"
+    },
+    {
+      "id": 1757097828613,
+      "date": "2025-09-05T18:43:48.613Z",
+      "patientName": "Henry",
+      "vitalType": "Blood Sugar (mg/dL)",
+      "value": "120",
+      "notes": "felling cold"
+    },
+    {
+      "id": 1757149472045,
+      "date": "2025-09-06T09:04:32.046Z",
+      "patientName": "Nitu",
+      "vitalType": "Blood Pressure (mmHg)",
+      "value": "120/80",
+      "notes": "Mild Fever"
+    }
+  ]
+}

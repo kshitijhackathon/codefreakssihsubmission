@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1662480615081,
+    "name": "Paracetamol 500mg",
+<<<<<<< HEAD
+    "stock": 57,
+=======
+    "stock": 12,
+>>>>>>> master
+    "price": 5.5
+  },
+  {
+    "id": 1662480642135,
+    "name": "Ibuprofen 200mg",
+    "stock": 146,
+    "price": 8.75
+  },
+  {
+    "id": 1662480663461,
+    "name": "Aspirin 75mg",
+    "stock": 117,
+    "price": 4
+  },
+  {
+    "id": 1757149861366,
+    "name": "Paracetamol",
+    "stock": 676,
+    "price": 12
+  },
+  {
+    "id": 1757149872087,
+    "name": "Betadene",
+    "stock": 44544,
+    "price": 15
+  },
+  {
+    "id": 1757149886890,
+    "name": "Citridene",
+    "stock": 3434,
+    "price": 5
+  },
+  {
+    "id": 1757149910271,
+    "name": "Cough Syrup",
+    "stock": 454,
+    "price": 24
+<<<<<<< HEAD
+=======
+  },
+  {
+    "id": 1757175248767,
+    "name": "test med ",
+    "stock": 1222,
+    "price": 1212
+>>>>>>> master
+  }
+]
