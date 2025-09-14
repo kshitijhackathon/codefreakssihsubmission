@@ -273,7 +273,7 @@ export default function DoctorView() {
   return (
     <div style={{ fontFamily: 'sans-serif', padding: '30px', background: '#f9fafb', minHeight: '100vh' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ color: '#111827', fontSize: '32px' }}>Doctor's Dashboard</h1>
+        <h1 style={{ color: '#111827', fontSize: '32px' }}>Doctor&apos;s Dashboard</h1>
         <button onClick={() => router.push('/')} style={{ padding: '10px 20px', background: '#e5e7eb', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' }}>Home</button>
       </header>
 

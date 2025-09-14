@@ -57,7 +57,7 @@ export default function Payment() {
           )}
         </div>
       </main>
-      <footer className={styles.footer}>© 2025, All rights reserved, PhonePe Ltd (Formerly known as 'PhonePe Private Ltd')</footer>
+      <footer className={styles.footer}>© 2025, All rights reserved, PhonePe Ltd (Formerly known as &apos;PhonePe Private Ltd&apos;)</footer>
     </div>
   );
 }

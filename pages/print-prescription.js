@@ -80,14 +80,14 @@ export default function PrintPrescription() {
 
       {prescription.notes && (
         <div style={{ marginTop: '30px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
-          <strong>Doctor's Notes:</strong>
+          <strong>Doctor&apos;s Notes:</strong>
           <p>{prescription.notes}</p>
         </div>
       )}
 
       <div style={{ marginTop: '100px', textAlign: 'right' }}>
         {prescription.signature ? (
-          <img src={prescription.signature} alt="Doctor's Signature" style={{ maxWidth: '200px', maxHeight: '80px', display: 'block', marginLeft: 'auto' }} />
+          <img src={prescription.signature} alt="Doctor&apos;s Signature" style={{ maxWidth: '200px', maxHeight: '80px', display: 'block', marginLeft: 'auto' }} />
         ) : (
           <div style={{ height: '80px' }}></div>
         )}
