@@ -44,7 +44,6 @@ export default function VideoConsultation() {
         <h1 style={{ color: '#1f2937', fontSize: '24px', margin: 0 }}>Video Consultation</h1>
         <button onClick={() => router.push('/')} style={{ padding: '10px 20px', background: '#e5e7eb', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>Back to Home</button>
       </header>
-
       {onCall ? (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <iframe
