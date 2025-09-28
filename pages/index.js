@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { HiOutlineWifiOff } from "react-icons/hi";
 import {
   HiUserCircle as HiOutlineUserMd,
   HiShieldCheck as HiOutlineShieldCheck,
