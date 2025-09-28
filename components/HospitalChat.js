@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDarkMode } from '../context/DarkModeContext';
 
 export default function HospitalChat() {
-  const { isDarkMode } = useDarkMode();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -144,75 +142,59 @@ export default function HospitalChat() {
     <div style={{
       position: 'fixed',
       top: 0, left: 0, right: 0, bottom: 0,
-      background: isDarkMode ? '#0f172a' : '#f5faff',
+      background: '#f5faff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 1000,
-      transition: 'background-color 0.3s ease'
+      zIndex: 1000
     }}>
       <div style={{
         width: '100%',
         maxWidth: 700,
         height: '95vh',
-        background: isDarkMode ? '#1e293b' : '#fff',
-        boxShadow: isDarkMode ? '0 2px 16px rgba(0,0,0,0.3)' : '0 2px 16px rgba(0,0,0,0.10)',
+        background: '#fff',
+        boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
         padding: 32,
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 16,
-        border: 'none',
-        transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
+        border: 'none'
       }}>
-        <h2 style={{ 
-          color: isDarkMode ? '#60a5fa' : '#1976d2', 
-          marginBottom: 16, 
-          textAlign: 'center',
-          transition: 'color 0.3s ease'
-        }}>🏥 Healthcare Assistant</h2>
-        <p style={{ 
-          textAlign: 'center', 
-          color: isDarkMode ? '#94a3b8' : '#666', 
-          marginBottom: 16, 
-          fontSize: '0.9rem',
-          transition: 'color 0.3s ease'
-        }}>
+        <h2 style={{ color: '#1976d2', marginBottom: 16, textAlign: 'center' }}>🏥 Healthcare Assistant</h2>
+        <p style={{ textAlign: 'center', color: '#666', marginBottom: 16, fontSize: '0.9rem' }}>
           I can speak English, Hindi, and Punjabi. ⚠️ For emergencies, seek professional help immediately.
         </p>
         <div style={{
           flex: 1,
           overflowY: 'auto',
-          background: isDarkMode ? '#0f172a' : '#f5faff',
+          background: '#f5faff',
           borderRadius: 12,
           border: 'none',
           padding: 16,
-          marginBottom: 16,
-          transition: 'background-color 0.3s ease'
+          marginBottom: 16
         }}>
           {messages.map((msg, i) =>
             msg.user ? (
               <div key={i} style={{ textAlign: 'right', margin: '8px 0' }}>
                 <span style={{
                   display: 'inline-block',
-                  background: isDarkMode ? '#3b82f6' : '#1976d2',
+                  background: '#1976d2',
                   color: '#fff',
                   borderRadius: 16,
                   padding: '8px 16px',
-                  fontWeight: 500,
-                  transition: 'background-color 0.3s ease'
+                  fontWeight: 500
                 }}>{msg.user}</span>
               </div>
             ) : (
               <div key={i} style={{ textAlign: 'left', margin: '8px 0' }}>
                 <span style={{
                   display: 'inline-block',
-                  background: isDarkMode ? '#1e293b' : '#e3f2fd',
-                  color: isDarkMode ? '#f1f5f9' : '#0d47a1',
+                  background: '#e3f2fd',
+                  color: '#0d47a1',
                   borderRadius: 16,
                   padding: '8px 16px',
                   whiteSpace: 'pre-line',
-                  fontWeight: 500,
-                  transition: 'background-color 0.3s ease, color 0.3s ease'
+                  fontWeight: 500
                 }}>{msg.bot}</span>
               </div>
             )
@@ -260,12 +242,9 @@ export default function HospitalChat() {
               flex: 1,
               padding: '10px 16px',
               borderRadius: 6,
-              border: `2px solid ${isDarkMode ? '#60a5fa' : '#1976d2'}`,
+              border: '2px solid #1976d2',
               fontSize: '1rem',
-              outline: 'none',
-              background: isDarkMode ? '#1e293b' : '#fff',
-              color: isDarkMode ? '#f1f5f9' : '#000',
-              transition: 'all 0.3s ease'
+              outline: 'none'
             }}
             onKeyDown={e => { if (e.key === 'Enter') handleSend(); }}
           />
@@ -273,15 +252,14 @@ export default function HospitalChat() {
             onClick={handleSend}
             disabled={isSending}
             style={{
-              background: isSending ? '#ccc' : (isDarkMode ? '#3b82f6' : '#1976d2'),
+              background: isSending ? '#ccc' : '#1976d2',
               color: '#fff',
               border: 'none',
               borderRadius: 6,
               padding: '0 24px',
               fontWeight: 'bold',
               fontSize: '1rem',
-              cursor: isSending ? 'not-allowed' : 'pointer',
-              transition: 'background-color 0.3s ease'
+              cursor: isSending ? 'not-allowed' : 'pointer'
             }}
           >
             {isSending ? 'Sending...' : 'Send'}
