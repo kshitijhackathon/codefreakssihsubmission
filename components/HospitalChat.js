@@ -83,6 +83,44 @@ export default function HospitalChat() {
     setMessages([...messages, userMessage]);
 
     try {
+      // Quick info handlers from earlier code (bed availability, visiting hours, medicines)
+      const lower = trimmed.toLowerCase();
+      if (/(^|\b)bed(s)?\b/.test(lower)) {
+        try {
+          const res = await fetch('/api/hospital-info');
+          if (res.ok) {
+            const data = await res.json();
+            const bedText = Array.isArray(data?.beds)
+              ? `Available beds:\n${data.beds.map(b => `${b.hospital}: ${b.available}`).join(', ')}`
+              : 'Bed availability information is currently unavailable.';
+            setMessages(prev => [...prev, { bot: bedText }]);
+            speakText(bedText);
+          }
+        } catch {}
+      } else if (/(visiting\s*hour|visiting\s*hours)/.test(lower)) {
+        try {
+          const res = await fetch('/api/hospital-info');
+          if (res.ok) {
+            const data = await res.json();
+            const hourText = data?.visitingHours ? `Hospital visiting hours are ${data.visitingHours}.` : 'Visiting hours are currently unavailable.';
+            setMessages(prev => [...prev, { bot: hourText }]);
+            speakText(hourText);
+          }
+        } catch {}
+      } else if (/(medicine|available\s*medicine|medicines)/.test(lower)) {
+        try {
+          const res = await fetch('/api/medicine');
+          if (res.ok) {
+            const meds = await res.json();
+            const medsText = Array.isArray(meds)
+              ? `Available medicines:\n${meds.map(m => `${m.name} (${m.stock})`).join(', ')}`
+              : 'Medicine information is currently unavailable.';
+            setMessages(prev => [...prev, { bot: medsText }]);
+            speakText(medsText);
+          }
+        } catch {}
+      }
+
       const res = await fetch('/api/health-assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
