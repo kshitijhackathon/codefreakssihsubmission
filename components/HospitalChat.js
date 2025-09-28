@@ -1,76 +1,103 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function HospitalChat() {
-  const [messages, setMessages] = useState([
-    { bot: "Hello! You can ask about bed booking, visiting hours, appointment scheduling, or available medicines." }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [bookingStep, setBookingStep] = useState(null);
-  const [bookingData, setBookingData] = useState({});
-  const [appointmentStep, setAppointmentStep] = useState(null);
-  const [appointmentData, setAppointmentData] = useState({});
+  const [isSending, setIsSending] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize conversation on component mount
+  useEffect(() => {
+    if (!isInitialized) {
+      const firstPrompt = "Hello! I'm your health assistant. May I know your name?";
+      setMessages([{ bot: firstPrompt }]);
+      setIsInitialized(true);
+      speakText(firstPrompt);
+    }
+  }, [isInitialized]);
+
+  // Language detection for TTS
+  function detectLanguage(text) {
+    if (text.split('').some(c => "\u0900" <= c && c <= "\u097F")) { // Devanagari
+      return "hi";
+    } else if (text.split('').some(c => "\u0A00" <= c && c <= "\u0A7F")) { // Gurmukhi
+      return "pa";
+    } else {
+      return "en";
+    }
+  }
+
+  // Text-to-speech function
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = detectLanguage(text);
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+  // Voice input function
+  async function startVoiceInput() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Speech recognition not supported in this browser');
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'hi-IN'; // Default to Hindi, can be made dynamic
+
+    setIsListening(true);
+    
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+      setIsListening(false);
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
+  }
 
   async function handleSend() {
-    let reply = "Sorry, I didn't understand. You can ask about bed booking, visiting hours, appointment scheduling, or available medicines.";
+    const trimmed = (input || '').trim();
+    if (!trimmed || isSending) return;
+    setIsSending(true);
 
-    // Bed booking flow
-    if (bookingStep) {
-      if (bookingStep === 1) {
-        setBookingData({ ...bookingData, name: input });
-        setBookingStep(2);
-        reply = "Which hospital do you want to book a bed in?";
-      } else if (bookingStep === 2) {
-        setBookingData({ ...bookingData, hospital: input });
-        setBookingStep(null);
-        reply = `Bed booked for ${bookingData.name || "your name"} at ${input}. Confirmation sent!`;
-      }
-      setMessages([...messages, { user: input }, { bot: reply }]);
-      setInput('');
-      return;
-    }
+    const historyToSend = messages;
+    const userMessage = { user: trimmed };
+    setMessages([...messages, userMessage]);
 
-    // Appointment scheduling flow
-    if (appointmentStep) {
-      if (appointmentStep === 1) {
-        setAppointmentData({ ...appointmentData, name: input });
-        setAppointmentStep(2);
-        reply = "Which doctor do you want to see?";
-      } else if (appointmentStep === 2) {
-        setAppointmentData({ ...appointmentData, doctor: input });
-        setAppointmentStep(3);
-        reply = "What time slot do you prefer?";
-      } else if (appointmentStep === 3) {
-        setAppointmentData({ ...appointmentData, time: input });
-        setAppointmentStep(null);
-        reply = `Appointment scheduled for ${appointmentData.name || "your name"} with ${appointmentData.doctor || "doctor"} at ${input}. Confirmation sent!`;
-      }
-      setMessages([...messages, { user: input }, { bot: reply }]);
-      setInput('');
-      return;
-    }
-
-    // Main triggers
-    if (/bed book/i.test(input)) {
-      setBookingStep(1);
-      reply = "Please provide your name for bed booking.";
-    } else if (/appointment/i.test(input)) {
-      setAppointmentStep(1);
-      reply = "Please provide your name for appointment scheduling.";
-    } else if (/bed/i.test(input)) {
-      const res = await fetch('/api/hospital-info');
+    try {
+      const res = await fetch('/api/health-assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: trimmed, history: historyToSend })
+      });
       const data = await res.json();
-      reply = "Available beds:\n" + data.beds.map(b => `${b.hospital}: ${b.available}`).join(', ');
-    } else if (/visiting hour/i.test(input)) {
-      const res = await fetch('/api/hospital-info');
-      const data = await res.json();
-      reply = `Hospital visiting hours are ${data.visitingHours}.`;
-    } else if (/medicine|available medicine/i.test(input)) {
-      const res = await fetch('/api/medicine');
-      const meds = await res.json();
-      reply = "Available medicines:\n" + meds.map(m => `${m.name} (${m.stock})`).join(', ');
+      const reply = data?.reply || "I'm unable to respond right now. Please try again.";
+      setMessages(prev => [...prev, { bot: reply }]);
+      speakText(reply);
+    } catch (e) {
+      setMessages(prev => [...prev, { bot: 'There was a problem connecting to the assistant. Please try again.' }]);
+    } finally {
+      setIsSending(false);
+      setInput('');
     }
-    setMessages([...messages, { user: input }, { bot: reply }]);
-    setInput('');
   }
 
   return (
@@ -95,7 +122,10 @@ export default function HospitalChat() {
         borderRadius: 16,
         border: 'none'
       }}>
-        <h2 style={{ color: '#1976d2', marginBottom: 16, textAlign: 'center' }}>Hospital Support</h2>
+        <h2 style={{ color: '#1976d2', marginBottom: 16, textAlign: 'center' }}>🏥 Healthcare Assistant</h2>
+        <p style={{ textAlign: 'center', color: '#666', marginBottom: 16, fontSize: '0.9rem' }}>
+          I can speak English, Hindi, and Punjabi. ⚠️ For emergencies, seek professional help immediately.
+        </p>
         <div style={{
           flex: 1,
           overflowY: 'auto',
@@ -132,11 +162,30 @@ export default function HospitalChat() {
             )
           )}
         </div>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+          <button
+            onClick={startVoiceInput}
+            disabled={isListening || isSending}
+            style={{
+              background: isListening ? '#ff9800' : '#4caf50',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              padding: '10px 16px',
+              fontWeight: 'bold',
+              fontSize: '0.9rem',
+              cursor: isListening || isSending ? 'not-allowed' : 'pointer',
+              opacity: isListening || isSending ? 0.7 : 1
+            }}
+          >
+            {isListening ? '🎤 Listening...' : '🎤 Voice'}
+          </button>
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <input
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="Type your message or use voice input..."
             style={{
               flex: 1,
               padding: '10px 16px',
@@ -149,18 +198,19 @@ export default function HospitalChat() {
           />
           <button
             onClick={handleSend}
+            disabled={isSending}
             style={{
-              background: '#1976d2',
+              background: isSending ? '#ccc' : '#1976d2',
               color: '#fff',
               border: 'none',
               borderRadius: 6,
               padding: '0 24px',
               fontWeight: 'bold',
               fontSize: '1rem',
-              cursor: 'pointer'
+              cursor: isSending ? 'not-allowed' : 'pointer'
             }}
           >
-            Send
+            {isSending ? 'Sending...' : 'Send'}
           </button>
         </div>
       </div>

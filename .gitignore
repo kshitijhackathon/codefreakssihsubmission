@@ -30,14 +30,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
-.env
-.env.local
-.env.development.local
-.env.production.local
-.env.test.local
-# allow example files
-!.env*.example
+# env files (can opt-in for committing if needed)
+.env*
 
 
 # typescript
