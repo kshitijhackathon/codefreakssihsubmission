@@ -5,6 +5,8 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
+import { useDarkMode } from "../context/DarkModeContext";
 import {
   HiUserCircle as HiOutlineUserMd,
   HiShieldCheck as HiOutlineShieldCheck,
@@ -125,6 +127,7 @@ export async function getStaticProps({ locale }) {
 
 export default function Home() {
   const { t } = useTranslation("common");
+  const { isDarkMode } = useDarkMode();
 
   const cardData = [
     {
@@ -189,7 +192,12 @@ export default function Home() {
   const otherCards = cardData.filter(card => !card.priority);
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-green-50" style={{
+      paddingTop: '80px', // Add padding for fixed header
+      background: isDarkMode ? '#0f172a' : undefined,
+      transition: 'background 0.3s ease'
+    }}>
+      <Header />
       <Head>
         <title>NabhaCare - Rural Healthcare Access Platform</title>
         <meta name="description" content="Telemedicine platform for rural healthcare access in Nabha, Punjab. Serving 173 villages with quality healthcare services." />

@@ -1,6 +1,7 @@
 import { appWithTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 import { CartProvider } from '../context/CartContext';
+import { DarkModeProvider } from '../context/DarkModeContext';
 import '../styles/globals.css';
 import '../styles/Home.module.css';
 
@@ -46,9 +47,11 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <CartProvider>
-      <Component {...pageProps} />
-    </CartProvider>
+    <DarkModeProvider>
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
+    </DarkModeProvider>
   );
 }
 
