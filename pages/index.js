@@ -15,11 +15,19 @@ import {
   HiDocumentText as HiOutlineDocumentText,
   HiUser as HiOutlineUser,
   HiBeaker as HiOutlineBeaker,
+  HiShoppingCart as HiOutlineShoppingCart,
   HiWifi as HiOutlineWifi,
   HiWifiOff as HiOutlineWifiOff,
   HiPhone as HiOutlinePhone,
   HiLocationMarker as HiOutlineLocationMarker,
 } from "react-icons/hi";
+import ReloadingPage from "../components/ReloadingPage";
+import LabTestBookingModal from "../components/LabTestBookingModal";
+import dynamic from 'next/dynamic';
+
+const NabhaGramIDModal = dynamic(() => import("../components/NabhaGramIDModal"), {
+  ssr: false
+});
 
 // Enhanced Language Switcher with better accessibility
 function LanguageSwitcher() {
@@ -125,6 +133,13 @@ export async function getStaticProps({ locale }) {
 
 export default function Home() {
   const { t } = useTranslation("common");
+  const [isReloading, setIsReloading] = useState(true);
+  const [showLabTestModal, setShowLabTestModal] = useState(false);
+  const [showNabhaGramModal, setShowNabhaGramModal] = useState(false);
+
+  const handleReloadComplete = () => {
+    setIsReloading(false);
+  };
 
   const cardData = [
     {
@@ -223,6 +238,13 @@ export default function Home() {
                 {t("adminLogin")}
               </a>
             </Link>
+            <button
+            onClick={() => setShowNabhaGramModal(true)}
+  className="inline-flex items-center px-4 py-3 rounded-lg text-red-600 border-2 border-transparent text-large font-medium bg-transparent"
+>
+  <HiOutlineUser className="w-6 h-6 mr-2" />
+  Generate NabhaGram ID
+</button>
           </div>
           <LanguageSwitcher />
         </div>
@@ -250,8 +272,8 @@ export default function Home() {
             <Image
               src="/images/ministry.png"
               alt="Punjab Government Logo"
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               className="object-contain"
               priority
               unoptimized
@@ -261,8 +283,8 @@ export default function Home() {
             <Image
               src="/images/punjab.png"
               alt="Ministry Logo"
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               className="object-contain bg-white rounded-lg p-2"
               priority
               unoptimized
@@ -348,6 +370,51 @@ export default function Home() {
                 </a>
               </Link>
             ))}
+            
+            {/* Lab Test Booking Card */}
+            <button
+              onClick={() => setShowLabTestModal(true)}
+              className="card-simple hover:scale-105 transition-transform duration-200 group text-left"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 p-3 rounded-xl bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                  <HiOutlineBeaker className="w-10 h-10 text-cyan-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-2 text-high-contrast">
+                    Lab Test Booking
+                  </h3>
+                  <p className="text-gray-600 text-large leading-relaxed">
+                    Book lab tests with home sample collection from 173 villages
+                  </p>
+                  <div className="mt-2 text-sm text-cyan-600 font-medium">
+                    Home Collection Available • Delivery Charge ₹20
+                  </div>
+                </div>
+              </div>
+            </button>
+
+            {/* Pharmacy Card */}
+            <Link href="/pharmacy" legacyBehavior>
+              <a className="card-simple hover:scale-105 transition-transform duration-200 group">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 p-3 rounded-xl bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                    <HiOutlineShoppingCart className="w-10 h-10 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-2 text-high-contrast">
+                      Pharmacy
+                    </h3>
+                    <p className="text-gray-600 text-large leading-relaxed">
+                      Order medicines online with home delivery to all villages
+                    </p>
+                    <div className="mt-2 text-sm text-purple-600 font-medium">
+                      50+ Medicines Available • Home Delivery
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
           </div>
         </div>
 
@@ -414,6 +481,23 @@ export default function Home() {
           </div>
         </footer>
       </main>
+
+      {/* Reloading Page */}
+      {isReloading && (
+        <ReloadingPage onReloadComplete={handleReloadComplete} />
+      )}
+
+      {/* Lab Test Booking Modal */}
+      <LabTestBookingModal 
+        isOpen={showLabTestModal} 
+        onClose={() => setShowLabTestModal(false)} 
+      />
+
+      {/* NabhaGram ID Modal */}
+      <NabhaGramIDModal 
+        isOpen={showNabhaGramModal} 
+        onClose={() => setShowNabhaGramModal(false)} 
+      />
     </div>
   );
 }

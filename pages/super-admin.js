@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { HiOutlineSearch, HiOutlinePencil, HiOutlineX, HiOutlineUser, HiOutlineDocumentText, HiOutlineCalendar } from 'react-icons/hi';
+
+// Client-side database import
+let nabhaGramDB;
+if (typeof window !== 'undefined') {
+  nabhaGramDB = require('../lib/nabhaGramDatabase').default;
+}
 
 const ManageDoctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -246,6 +253,305 @@ const ManageAppointments = () => {
   );
 };
 
+const CheckPatientDetails = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [healthRecords, setHealthRecords] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editData, setEditData] = useState({});
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    if (typeof window !== 'undefined' && nabhaGramDB) {
+      const results = nabhaGramDB.searchNabhaGramID(searchQuery);
+      setSearchResults(results);
+    }
+  };
+
+  const handleSelectPatient = (patient) => {
+    setSelectedPatient(patient);
+    if (typeof window !== 'undefined' && nabhaGramDB) {
+      const completeData = nabhaGramDB.getCompleteHealthData(patient.id);
+      setHealthRecords(completeData.healthRecords || []);
+    }
+  };
+
+  const handleEditClick = () => {
+    if (selectedPatient) {
+      setEditData({
+        firstName: selectedPatient.firstName,
+        fullName: selectedPatient.fullName,
+        mobile: selectedPatient.mobile,
+        aadhaar: selectedPatient.aadhaar,
+        village: selectedPatient.village
+      });
+      setShowEditModal(true);
+    }
+  };
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    if (!selectedPatient) return;
+
+    if (typeof window !== 'undefined' && nabhaGramDB) {
+      const updatedPatient = nabhaGramDB.updatePatientInfo(selectedPatient.id, editData);
+      if (updatedPatient) {
+        setSelectedPatient(updatedPatient);
+        alert('Patient information updated successfully!');
+        setShowEditModal(false);
+      }
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Search Patient Details</h3>
+        <form onSubmit={handleSearch} className="flex gap-4">
+          <div className="flex-1">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Enter NabhaGram ID, Name, Mobile, Aadhaar, or Village"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center gap-2"
+          >
+            <HiOutlineSearch className="w-5 h-5" />
+            Search
+          </button>
+        </form>
+      </div>
+
+      {/* Search Results */}
+      {searchResults.length > 0 && (
+        <div>
+          <h4 className="text-lg font-semibold text-gray-800 mb-4">Search Results</h4>
+          <div className="space-y-3">
+            {searchResults.map((patient) => (
+              <div
+                key={patient.id}
+                onClick={() => handleSelectPatient(patient)}
+                className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                  selectedPatient?.id === patient.id
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h5 className="font-semibold text-gray-800">{patient.fullName}</h5>
+                    <p className="text-sm text-gray-600">ID: {patient.id}</p>
+                    <p className="text-sm text-gray-600">Mobile: {patient.mobile}</p>
+                    <p className="text-sm text-gray-600">Village: {patient.village}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Created: {new Date(patient.createdAt).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Selected Patient Details */}
+      {selectedPatient && (
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="flex justify-between items-start mb-6">
+            <h4 className="text-xl font-bold text-gray-800">Patient Information</h4>
+            <button
+              onClick={handleEditClick}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center gap-2"
+            >
+              <HiOutlinePencil className="w-4 h-4" />
+              Edit Details
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <p className="text-sm text-gray-600">First Name</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.firstName}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Full Name</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.fullName}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">NabhaGram ID</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.id}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Mobile Number</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.mobile}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Aadhaar Number</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.aadhaar}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Village</p>
+              <p className="font-semibold text-gray-800">{selectedPatient.village}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Created Date</p>
+              <p className="font-semibold text-gray-800">{new Date(selectedPatient.createdAt).toLocaleDateString()}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Last Updated</p>
+              <p className="font-semibold text-gray-800">{new Date(selectedPatient.updatedAt || selectedPatient.createdAt).toLocaleDateString()}</p>
+            </div>
+          </div>
+
+          {/* Health Records */}
+          <div>
+            <h5 className="text-lg font-semibold text-gray-800 mb-4">Health Records</h5>
+            {healthRecords.length > 0 ? (
+              <div className="space-y-4">
+                {healthRecords.map((record) => (
+                  <div key={record.id} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h6 className="font-semibold text-gray-800">{record.type}</h6>
+                      <span className="text-sm text-gray-500">
+                        {new Date(record.date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 mb-2">{record.description}</p>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <HiOutlineDocumentText className="w-4 h-4" />
+                      <span>Uploaded: {new Date(record.uploadedAt).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <HiOutlineDocumentText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <p>No health records found for this patient.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-800">Edit Patient Information</h3>
+                <button
+                  onClick={() => setShowEditModal(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <HiOutlineX className="w-6 h-6 text-gray-500" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleEditSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                  <input
+                    type="text"
+                    value={editData.firstName || ''}
+                    onChange={(e) => setEditData({...editData, firstName: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <input
+                    type="text"
+                    value={editData.fullName || ''}
+                    onChange={(e) => setEditData({...editData, fullName: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                  <input
+                    type="tel"
+                    value={editData.mobile || ''}
+                    onChange={(e) => setEditData({...editData, mobile: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Aadhaar Number</label>
+                  <input
+                    type="text"
+                    value={editData.aadhaar || ''}
+                    onChange={(e) => setEditData({...editData, aadhaar: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Village</label>
+                  <input
+                    type="text"
+                    value={editData.village || ''}
+                    onChange={(e) => setEditData({...editData, village: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0">
+                      <HiOutlineUser className="w-5 h-5 text-yellow-600 mt-0.5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-yellow-800 mb-1">Important Note</h4>
+                      <p className="text-sm text-yellow-700">
+                        This will permanently update the patient's information in the database. 
+                        Please verify all details before submitting.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowEditModal(false)}
+                    className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  >
+                    Update Patient Information
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function SuperAdmin() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('doctors');
@@ -264,12 +570,14 @@ export default function SuperAdmin() {
             <div onClick={() => setActiveTab('doctors')} style={activeTab === 'doctors' ? activeTabStyle : tabStyle}>Manage Doctors</div>
             <div onClick={() => setActiveTab('hospitals')} style={activeTab === 'hospitals' ? activeTabStyle : tabStyle}>Manage Hospitals</div>
             <div onClick={() => setActiveTab('appointments')} style={activeTab === 'appointments' ? activeTabStyle : tabStyle}>Manage Appointments</div>
+            <div onClick={() => setActiveTab('patients')} style={activeTab === 'patients' ? activeTabStyle : tabStyle}>Check Patient Details</div>
           </nav>
         </div>
         <div>
           {activeTab === 'doctors' && <ManageDoctors />}
           {activeTab === 'hospitals' && <ManageHospitals />}
           {activeTab === 'appointments' && <ManageAppointments />}
+          {activeTab === 'patients' && <CheckPatientDetails />}
         </div>
       </main>
     </div>

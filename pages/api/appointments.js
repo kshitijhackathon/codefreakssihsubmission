@@ -28,8 +28,12 @@ export default function handler(req, res) {
       res.status(200).json(db.appointments);
     }
   } else if (req.method === 'POST') {
+    // Generate a unique token for the appointment
+    const token = Math.floor(100000 + Math.random() * 900000); // 6-digit token
+    
     const newAppointment = {
       id: Date.now(),
+      token: token,
       ...req.body,
     };
     db.appointments.push(newAppointment);

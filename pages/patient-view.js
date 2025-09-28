@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { HiIdentification as HiOutlineIdentification, HiExclamationCircle as HiOutlineExclamationCircle, HiCheckCircle as HiOutlineCheckCircle } from 'react-icons/hi';
+
+// Import database only on client side
+let nabhaGramDB;
+if (typeof window !== 'undefined') {
+  nabhaGramDB = require('../lib/nabhaGramDatabase').default;
+}
 
 const vitalTypes = ['Blood Pressure (mmHg)', 'Blood Sugar (mg/dL)', 'Weight (kg)', 'Temperature (°C)'];
 
@@ -12,6 +19,10 @@ export default function PatientView() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('tracker');
+  const [nabhaGramID, setNabhaGramID] = useState('');
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationError, setValidationError] = useState('');
+  const [validatedPatient, setValidatedPatient] = useState(null);
 
   const [trackerVital, setTrackerVital] = useState(vitalTypes[0]);
   const [trackerValue, setTrackerValue] = useState('');
@@ -22,6 +33,39 @@ export default function PatientView() {
   const [symptomInput, setSymptomInput] = useState('');
   const [symptomResult, setSymptomResult] = useState(null);
   const [isCheckingSymptoms, setIsCheckingSymptoms] = useState(false);
+
+  const handleValidateID = async (e) => {
+    e.preventDefault();
+    if (!nabhaGramID.trim()) {
+      setValidationError('Please enter your NabhaGram ID');
+      return;
+    }
+
+    setIsValidating(true);
+    setValidationError('');
+
+    try {
+      if (typeof window !== 'undefined' && nabhaGramDB) {
+        const patientData = nabhaGramDB.getNabhaGramIDById(nabhaGramID);
+        
+        if (patientData) {
+          setValidatedPatient(patientData);
+          setPatientNameInput(patientData.fullName);
+          await fetchData(patientData.fullName);
+        } else {
+          setValidationError('Invalid NabhaGram ID. Please check your ID or generate a new one.');
+          setValidatedPatient(null);
+        }
+      } else {
+        setValidationError('Service temporarily unavailable. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Validation error:', error);
+      setValidationError('Error validating ID. Please try again.');
+    } finally {
+      setIsValidating(false);
+    }
+  };
 
   const fetchData = async (patientName) => {
     try {
@@ -180,11 +224,134 @@ export default function PatientView() {
   if (!loggedInPatient) {
     return (
       <div style={{ fontFamily: 'sans-serif', background: '#f9fafb', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ background: 'white', padding: '40px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
+        <div style={{ background: 'white', padding: '40px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '500px' }}>
           <h1 style={{ textAlign: 'center', color: '#111827', marginBottom: '30px' }}>Patient Portal</h1>
+          
+          {/* NabhaGram ID Validation Section */}
+          {!validatedPatient ? (
+            <div style={{ marginBottom: '20px', padding: '15px', background: '#fef3c7', borderRadius: '8px', border: '1px solid #f59e0b' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                <HiOutlineIdentification style={{ marginRight: '8px', color: '#d97706', fontSize: '18px' }} />
+                <h3 style={{ margin: 0, color: '#92400e', fontSize: '16px' }}>NabhaGram ID Required</h3>
+              </div>
+              <p style={{ margin: '0 0 10px 0', color: '#92400e', fontSize: '13px' }}>
+                Please enter your NabhaGram ID to access patient portal. If you don't have one, 
+                <a href="/" style={{ color: '#059669', textDecoration: 'underline', marginLeft: '5px' }}>generate it here</a>.
+              </p>
+              
+              <form onSubmit={handleValidateID} style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
+                <div style={{ flex: 1 }}>
+                  <input 
+                    type="text" 
+                    value={nabhaGramID} 
+                    onChange={(e) => setNabhaGramID(e.target.value.toUpperCase())} 
+                    placeholder="e.g., NBHABC2025000001"
+                    required 
+                    style={{ 
+                      width: '100%', 
+                      padding: '8px', 
+                      borderRadius: '4px', 
+                      border: validationError ? '1px solid #dc2626' : '1px solid #d1d5db',
+                      fontSize: '13px'
+                    }} 
+                  />
+                  {validationError && (
+                    <div style={{ display: 'flex', alignItems: 'center', marginTop: '4px', color: '#dc2626', fontSize: '11px' }}>
+                      <HiOutlineExclamationCircle style={{ marginRight: '4px', fontSize: '12px' }} />
+                      {validationError}
+                    </div>
+                  )}
+                </div>
+                <button 
+                  type="submit" 
+                  disabled={isValidating}
+                  style={{ 
+                    padding: '8px 15px', 
+                    background: isValidating ? '#9ca3af' : '#059669', 
+                    color: 'white', 
+                    border: 'none', 
+                    borderRadius: '4px', 
+                    cursor: isValidating ? 'not-allowed' : 'pointer', 
+                    fontWeight: 'bold',
+                    fontSize: '13px'
+                  }}
+                >
+                  {isValidating ? 'Validating...' : 'Validate ID'}
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div style={{ marginBottom: '20px', padding: '12px', background: '#d1fae5', borderRadius: '8px', border: '1px solid #10b981' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <HiOutlineCheckCircle style={{ marginRight: '8px', color: '#059669', fontSize: '18px' }} />
+                <div>
+                  <div style={{ fontWeight: 'bold', color: '#065f46', marginBottom: '2px', fontSize: '14px' }}>
+                    ✅ Verified: {validatedPatient.fullName}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#047857' }}>
+                    NabhaGram ID: {validatedPatient.id}
+                  </div>
+                </div>
+                <button 
+                  onClick={() => {
+                    setValidatedPatient(null);
+                    setNabhaGramID('');
+                    setPatientNameInput('');
+                  }}
+                  style={{ 
+                    marginLeft: 'auto', 
+                    padding: '4px 8px', 
+                    background: '#f3f4f6', 
+                    border: '1px solid #d1d5db', 
+                    borderRadius: '4px', 
+                    cursor: 'pointer',
+                    fontSize: '11px'
+                  }}
+                >
+                  Change ID
+                </button>
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleLogin}>
-            <input type="text" value={patientNameInput} onChange={(e) => setPatientNameInput(e.target.value)} placeholder="Enter Your Full Name" style={{ width: '100%', padding: '12px', marginBottom: '20px', borderRadius: '6px', border: '1px solid #d1d5db' }} />
-            <button type="submit" disabled={isLoading} style={{ width: '100%', padding: '12px', background: '#2563eb', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '16px' }}>{isLoading ? 'Loading...' : 'Access My Records'}</button>
+            <input 
+              type="text" 
+              value={patientNameInput} 
+              onChange={(e) => setPatientNameInput(e.target.value)} 
+              placeholder="Enter Your Full Name" 
+              disabled={validatedPatient}
+              style={{ 
+                width: '100%', 
+                padding: '12px', 
+                marginBottom: '20px', 
+                borderRadius: '6px', 
+                border: '1px solid #d1d5db',
+                background: validatedPatient ? '#f3f4f6' : 'white',
+                color: validatedPatient ? '#6b7280' : '#111827'
+              }} 
+            />
+            {validatedPatient && (
+              <p style={{ margin: '-15px 0 15px 0', fontSize: '12px', color: '#6b7280', textAlign: 'center' }}>
+                Name auto-filled from verified NabhaGram ID
+              </p>
+            )}
+            <button 
+              type="submit" 
+              disabled={isLoading || !validatedPatient}
+              style={{ 
+                width: '100%', 
+                padding: '12px', 
+                background: validatedPatient ? '#2563eb' : '#9ca3af', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '6px', 
+                cursor: validatedPatient ? 'pointer' : 'not-allowed', 
+                fontSize: '16px' 
+              }}
+            >
+              {isLoading ? 'Loading...' : validatedPatient ? 'Access My Records' : 'Please Validate NabhaGram ID First'}
+            </button>
             {error && <p style={{ color: '#ef4444', textAlign: 'center', marginTop: '15px' }}>{error}</p>}
           </form>
         </div>
