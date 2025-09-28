@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import styles from '../styles/SymptomChecker.module.css';
 import { HiIdentification as HiOutlineIdentification, HiExclamationCircle as HiOutlineExclamationCircle, HiCheckCircle as HiOutlineCheckCircle } from 'react-icons/hi';
 
@@ -106,8 +107,8 @@ const SymptomChecker = () => {
                 <h3 style={{ margin: 0, color: '#92400e', fontSize: '16px' }}>NabhaGram ID Required</h3>
               </div>
               <p style={{ margin: '0 0 10px 0', color: '#92400e', fontSize: '13px' }}>
-                Please enter your NabhaGram ID to use symptom checker. If you don't have one, 
-                <a href="/" style={{ color: '#059669', textDecoration: 'underline', marginLeft: '5px' }}>generate it here</a>.
+                Please enter your NabhaGram ID to use symptom checker. If you don&apos;t have one, 
+                <Link href="/" style={{ color: '#059669', textDecoration: 'underline', marginLeft: '5px' }}>generate it here</Link>.
               </p>
               
               <form onSubmit={handleValidateID} style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>

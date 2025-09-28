@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { HiIdentification as HiOutlineIdentification, HiExclamationCircle as HiOutlineExclamationCircle, HiCheckCircle as HiOutlineCheckCircle } from 'react-icons/hi';
 
 // Import database only on client side
@@ -235,8 +236,8 @@ export default function PatientView() {
                 <h3 style={{ margin: 0, color: '#92400e', fontSize: '16px' }}>NabhaGram ID Required</h3>
               </div>
               <p style={{ margin: '0 0 10px 0', color: '#92400e', fontSize: '13px' }}>
-                Please enter your NabhaGram ID to access patient portal. If you don't have one, 
-                <a href="/" style={{ color: '#059669', textDecoration: 'underline', marginLeft: '5px' }}>generate it here</a>.
+                Please enter your NabhaGram ID to access patient portal. If you don&apos;t have one, 
+                <Link href="/" style={{ color: '#059669', textDecoration: 'underline', marginLeft: '5px' }}>generate it here</Link>.
               </p>
               
               <form onSubmit={handleValidateID} style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>

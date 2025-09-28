@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { HiX as HiOutlineX, HiBeaker as HiOutlineBeaker, HiLocationMarker as HiOutlineLocationMarker, HiCurrencyRupee as HiOutlineCurrencyRupee, HiIdentification as HiOutlineIdentification, HiExclamationCircle as HiOutlineExclamationCircle, HiCheckCircle as HiOutlineCheckCircle } from 'react-icons/hi';
 
 // Import database only on client side
@@ -186,8 +187,8 @@ export default function LabTestBookingModal({ isOpen, onClose }) {
                 <h3 className="text-lg font-semibold text-yellow-800">NabhaGram ID Required</h3>
               </div>
               <p className="text-sm text-yellow-700 mb-3">
-                Please enter your NabhaGram ID to book lab tests. If you don't have one, 
-                <a href="/" className="text-green-600 underline ml-1">generate it here</a>.
+                Please enter your NabhaGram ID to book lab tests. If you don&apos;t have one, 
+                <Link href="/" className="text-green-600 underline ml-1">generate it here</Link>.
               </p>
               
               <form onSubmit={handleValidateID} className="flex gap-3 items-end">

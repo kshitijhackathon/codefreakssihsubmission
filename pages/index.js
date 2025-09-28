@@ -17,7 +17,6 @@ import {
   HiBeaker as HiOutlineBeaker,
   HiShoppingCart as HiOutlineShoppingCart,
   HiWifi as HiOutlineWifi,
-  HiWifiOff as HiOutlineWifiOff,
   HiPhone as HiOutlinePhone,
   HiLocationMarker as HiOutlineLocationMarker,
 } from "react-icons/hi";

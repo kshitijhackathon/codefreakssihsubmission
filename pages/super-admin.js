@@ -521,7 +521,7 @@ const CheckPatientDetails = () => {
                     <div>
                       <h4 className="font-semibold text-yellow-800 mb-1">Important Note</h4>
                       <p className="text-sm text-yellow-700">
-                        This will permanently update the patient's information in the database. 
+                        This will permanently update the patient&apos;s information in the database. 
                         Please verify all details before submitting.
                       </p>
                     </div>
