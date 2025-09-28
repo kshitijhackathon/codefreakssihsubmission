@@ -35,6 +35,16 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Environment variables
+
+Create a `.env.local` file in the project root with your OpenAI API key:
+
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+An example file is provided as `.env.local.example`. Do not commit real secrets; `.gitignore` already excludes `.env*` files.
+
 ## Deployment
 
 To build the application for production:
