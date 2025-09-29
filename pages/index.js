@@ -144,18 +144,18 @@ export default function Home() {
   const cardData = [
     {
       href: "/hospital-chat",
-      title: t("hospitalSupport"),
+      title: t("symptomChecker"),
       desc: t("hospitalSupportDesc"),
       icon: <HiOutlineChatAlt2 className="w-10 h-10 text-blue-600" />,
       color: "blue",
       priority: true
     },
     {
-      href: "/symptom-checker",
-      title: t("symptomChecker"),
-      desc: t("symptomCheckerDesc"),
-      icon: <HiOutlineClipboardCheck className="w-10 h-10 text-green-600" />,
-      color: "green",
+      href: "/blood-support",
+      title: "Blood Support",
+      desc: "Find donors, post requests, and connect instantly.",
+      icon: <HiOutlineChatAlt2 className="w-10 h-10 text-red-600" />,
+      color: "red",
       priority: true
     },
     {

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { HiIdentification as HiOutlineIdentification, HiExclamationCircle as HiOutlineExclamationCircle, HiCheckCircle as HiOutlineCheckCircle, HiShoppingCart as HiOutlineShoppingCart, HiSearch as HiOutlineSearch, HiCurrencyRupee as HiOutlineCurrencyRupee, HiPlus as HiOutlinePlus, HiMinus as HiOutlineMinus } from 'react-icons/hi';
@@ -66,6 +68,7 @@ const MEDICINES = [
 const CATEGORIES = ["All", "Pain Relief", "Cardiovascular", "Diabetes", "Digestive", "Allergy", "Antibiotic", "Endocrine", "Steroid", "Respiratory", "Psychiatric", "Neurological", "Urological", "Supplements"];
 
 export default function Pharmacy() {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const [nabhaGramID, setNabhaGramID] = useState('');
   const [isValidating, setIsValidating] = useState(false);
@@ -189,7 +192,7 @@ export default function Pharmacy() {
     <div style={{ fontFamily: 'sans-serif', minHeight: '100vh', background: '#f9fafb' }}>
       {/* Header */}
       <header style={{ background: 'white', padding: '15px 30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ color: '#059669', fontSize: '24px', margin: 0 }}>NabhaCare Pharmacy</h1>
+        <h1 style={{ color: '#059669', fontSize: '24px', margin: 0 }}>{t('pharmacyTitle')}</h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <button 
             onClick={() => setShowCart(!showCart)}
@@ -206,9 +209,9 @@ export default function Pharmacy() {
             }}
           >
             <HiOutlineShoppingCart style={{ fontSize: '18px' }} />
-            Cart ({cart.length})
+            {t('cart')} ({cart.length})
           </button>
-          <button onClick={() => router.push('/')} style={{ padding: '10px 20px', background: '#e5e7eb', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>Back to Home</button>
+          <button onClick={() => router.push('/')} style={{ padding: '10px 20px', background: '#e5e7eb', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>{t('backToHome')}</button>
         </div>
       </header>
 
@@ -306,7 +309,7 @@ export default function Pharmacy() {
             <HiOutlineSearch style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#6b7280' }} />
             <input
               type="text"
-              placeholder="Search medicines..."
+              placeholder={t('searchMedicinesPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -486,4 +489,12 @@ export default function Pharmacy() {
       </main>
     </div>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common']))
+    }
+  };
 }

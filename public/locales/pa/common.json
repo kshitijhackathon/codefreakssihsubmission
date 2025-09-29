@@ -21,5 +21,11 @@
   "pharmacyAdmin": "ਫਾਰਮਸੀ ਐਡਮਿਨ",
   "pharmacyAdminDesc": "ਫਾਰਮਸੀ ਇਨਵੈਂਟਰੀ ਅਤੇ ਆਰਡਰ ਪ੍ਰਬੰਧ ਕਰੋ।",
   "superAdmin": "ਸੁਪਰ ਐਡਮਿਨ",
-  "superAdminDesc": "ਨਭਾ ਕੇਅਰ ਪਲੇਟਫਾਰਮ ਦਾ ਕੁੱਲ ਪ੍ਰਬੰਧਨ।"
+  "superAdminDesc": "ਨਭਾ ਕੇਅਰ ਪਲੇਟਫਾਰਮ ਦਾ ਕੁੱਲ ਪ੍ਰਬੰਧਨ।",
+  "bloodSupport": "ਬਲੱਡ ਸਪੋਰਟ",
+  "bloodSupportDesc": "ਦਾਤਾਵਾਂ ਨੂੰ ਲੱਭੋ, ਬੇਨਤੀਆਂ ਪੋਸਟ ਕਰੋ ਅਤੇ ਤੁਰੰਤ ਜੁੜੋ।",
+  "pharmacyTitle": "ਨਭਾ ਕੇਅਰ ਫਾਰਮਸੀ",
+  "cart": "ਕਾਰਟ",
+  "backToHome": "ਹੋਮ ਤੇ ਵਾਪਸ",
+  "searchMedicinesPlaceholder": "ਦਵਾਈਆਂ ਖੋਜੋ..."
 }

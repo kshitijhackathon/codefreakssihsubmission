@@ -22,4 +22,11 @@
   "pharmacyAdminDesc": "Manage pharmacy inventory and orders.",
   "superAdmin": "Super Admin",
   "superAdminDesc": "Overall management of the NabhaCare platform."
+  ,
+  "bloodSupport": "Blood Support",
+  "bloodSupportDesc": "Find donors, post requests, and connect instantly.",
+  "pharmacyTitle": "NabhaCare Pharmacy",
+  "cart": "Cart",
+  "backToHome": "Back to Home",
+  "searchMedicinesPlaceholder": "Search medicines..."
 }

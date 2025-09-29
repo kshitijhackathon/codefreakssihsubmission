@@ -21,5 +21,11 @@
   "pharmacyAdmin": "फार्मेसी एडमिन",
   "pharmacyAdminDesc": "फार्मेसी इन्वेंटरी और ऑर्डर प्रबंधित करें।",
   "superAdmin": "सुपर एडमिन",
-  "superAdminDesc": "नभा केयर प्लेटफार्म का संपूर्ण प्रबंधन।"
+  "superAdminDesc": "नभा केयर प्लेटफार्म का संपूर्ण प्रबंधन।",
+  "bloodSupport": "ब्लड सपोर्ट",
+  "bloodSupportDesc": "डोनर्स खोजें, रिक्वेस्ट पोस्ट करें और तुरंत संपर्क करें।",
+  "pharmacyTitle": "नभा केयर फार्मेसी",
+  "cart": "कार्ट",
+  "backToHome": "होम पर वापस",
+  "searchMedicinesPlaceholder": "दवाइयाँ खोजें..."
 }

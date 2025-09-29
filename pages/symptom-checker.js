@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/SymptomChecker.module.css';
@@ -261,3 +262,11 @@ const SymptomChecker = () => {
 };
 
 export default SymptomChecker;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common']))
+    }
+  };
+}

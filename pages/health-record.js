@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { HiOutlineSearch, HiOutlineUpload, HiOutlineDocumentText, HiOutlineUser, HiOutlineCalendar, HiOutlineX } from 'react-icons/hi';
 
@@ -300,4 +301,12 @@ export default function HealthRecord() {
       )}
     </div>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common']))
+    }
+  };
 }
