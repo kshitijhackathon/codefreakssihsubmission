@@ -74,36 +74,6 @@ function LanguageSwitcher() {
   );
 }
 
-// Connection Status Component
-function ConnectionStatus() {
-  const [isOnline, setIsOnline] = useState(true);
-
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
-
-  return (
-    <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg transition-all duration-300 ${
-      isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-    }`}>
-      <div className="flex items-center gap-2">
-        {isOnline ? <HiOutlineWifi className="w-5 h-5" /> : <HiOutlineWifiOff className="w-5 h-5" />}
-        <span className="text-sm font-medium">
-          {isOnline ? 'Online' : 'Offline'}
-        </span>
-      </div>
-    </div>
-  );
-}
 
 // Emergency Contact Component
 function EmergencyContact() {
@@ -218,7 +188,7 @@ export default function Home() {
         <meta name="apple-mobile-web-app-title" content="NabhaCare" />
       </Head>
 
-      <ConnectionStatus />
+      {/* ConnectionStatus removed */}
 
       {/* Top Navigation Bar */}
       <div className="bg-white shadow-sm border-b-2 border-green-100">
